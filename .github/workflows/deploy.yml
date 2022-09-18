@@ -32,10 +32,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: SSH Deploy
-      uses: appleboy/ssh-action@master
+      uses: Ameekh-Rifa/NodeJS-Application@master 
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: |
+              curl -o-   https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh    | bash
+              . ~/.nvm/nvm.sh
+               nvm install 14
+               npm install -g pm2
+               cd ~/CICD
+               git pull origin main
+               npm install
+               npm run build
+               pm2 restart api
