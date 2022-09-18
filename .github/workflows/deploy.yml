@@ -25,7 +25,7 @@ jobs:
         npm run build --if-present
         npm run build
        env:
-        CI:true
+        CI: true
 
   deploy:
     name: [Build]
